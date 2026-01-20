@@ -1,0 +1,1 @@
+Run BandUnlocker.exe, then put ms band in bluetooth pairing mode and connect
