@@ -10,7 +10,7 @@
     <PackageArchitecture>x86</PackageArchitecture>
     <PackageIdentityName>22519fd8-2468-46c8-8944-1a9b834622de</PackageIdentityName>
     <PackageIdentityPublisher>CN=sophi</PackageIdentityPublisher>
-    <IntermediateOutputPath>C:\Users\sophi\source\repos\MSBandStreamer\obj\x86\Debug\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\sophi\engagement-experiment-data-collection\MSBand\MSBandStreamer\obj\x86\Debug\</IntermediateOutputPath>
     <RemoteDeploymentType>
     </RemoteDeploymentType>
     <PackageRegistrationPath>
@@ -18,7 +18,7 @@
     <RemoveNonLayoutFiles>true</RemoveNonLayoutFiles>
     <DeployOptionalPackages>false</DeployOptionalPackages>
     <WindowsSdkPath>C:\Program Files %28x86%29\Windows Kits\10\</WindowsSdkPath>
-    <LayoutDir>C:\Users\sophi\source\repos\MSBandStreamer\bin\x86\Debug\AppX</LayoutDir>
+    <LayoutDir>C:\Users\sophi\engagement-experiment-data-collection\MSBand\MSBandStreamer\bin\x86\Debug\AppX</LayoutDir>
     <RegisteredManifestChecksum>19C608A7BEF80B0F42A295845BEBD627D3C4F381DA5CC7BB87A69FC0F8E58C6B</RegisteredManifestChecksum>
     <RegisteredPackageMoniker>22519fd8-2468-46c8-8944-1a9b834622de_1.0.0.0_x86__ay1nhc6wpqed0</RegisteredPackageMoniker>
     <RegisteredUserModeAppID>22519fd8-2468-46c8-8944-1a9b834622de_ay1nhc6wpqed0!App</RegisteredUserModeAppID>
@@ -27,16 +27,16 @@
     <RegisteredVersion>1.0.0.0</RegisteredVersion>
   </PropertyGroup>
   <ItemGroup>
-    <AppXManifest Include="C:\Users\sophi\source\repos\MSBandStreamer\bin\x86\Debug\Core\AppxManifest.xml">
+    <AppXManifest Include="C:\Users\sophi\engagement-experiment-data-collection\MSBand\MSBandStreamer\bin\x86\Debug\Core\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2026-01-20T19:43:00.470</Modified>
+      <Modified>2026-01-21T16:55:52.718</Modified>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
-    <AppxPackagedFile Include="C:\Users\sophi\source\repos\MSBandStreamer\bin\x86\Debug\MSBandStreamer.exe">
+    <AppxPackagedFile Include="C:\Users\sophi\engagement-experiment-data-collection\MSBand\MSBandStreamer\bin\x86\Debug\MSBandStreamer.exe">
       <PackagePath>entrypoint\MSBandStreamer.exe</PackagePath>
-      <Modified>2026-01-20T19:41:38.734</Modified>
+      <Modified>2026-01-21T16:55:50.940</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\sophi\.nuget\packages\microsoft.band\1.3.20628\lib\uap10.0\Google.Protobuf.dll">
       <PackagePath>Google.Protobuf.dll</PackagePath>
@@ -62,67 +62,67 @@
       <PackagePath>Microsoft.UI.Xaml.Markup.winmd</PackagePath>
       <Modified>2025-11-12T20:28:08.000</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\sophi\source\repos\MSBandStreamer\Properties\Default.rd.xml">
+    <AppxPackagedFile Include="C:\Users\sophi\engagement-experiment-data-collection\MSBand\MSBandStreamer\Properties\Default.rd.xml">
       <PackagePath>Properties\Default.rd.xml</PackagePath>
-      <Modified>2026-01-20T19:37:32.854</Modified>
+      <Modified>2026-01-20T20:16:00.076</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\sophi\source\repos\MSBandStreamer\Assets\LockScreenLogo.scale-200.png">
+    <AppxPackagedFile Include="C:\Users\sophi\engagement-experiment-data-collection\MSBand\MSBandStreamer\Assets\LockScreenLogo.scale-200.png">
       <PackagePath>Assets\LockScreenLogo.scale-200.png</PackagePath>
-      <Modified>2026-01-17T20:16:51.512</Modified>
+      <Modified>2026-01-20T20:16:00.069</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\sophi\source\repos\MSBandStreamer\Assets\SplashScreen.scale-200.png">
+    <AppxPackagedFile Include="C:\Users\sophi\engagement-experiment-data-collection\MSBand\MSBandStreamer\Assets\SplashScreen.scale-200.png">
       <PackagePath>Assets\SplashScreen.scale-200.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2026-01-17T20:16:51.518</Modified>
+      <Modified>2026-01-20T20:16:00.069</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\sophi\source\repos\MSBandStreamer\Assets\Square150x150Logo.scale-200.png">
+    <AppxPackagedFile Include="C:\Users\sophi\engagement-experiment-data-collection\MSBand\MSBandStreamer\Assets\Square150x150Logo.scale-200.png">
       <PackagePath>Assets\Square150x150Logo.scale-200.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2026-01-17T20:16:51.518</Modified>
+      <Modified>2026-01-20T20:16:00.069</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\sophi\source\repos\MSBandStreamer\Assets\Square44x44Logo.scale-200.png">
+    <AppxPackagedFile Include="C:\Users\sophi\engagement-experiment-data-collection\MSBand\MSBandStreamer\Assets\Square44x44Logo.scale-200.png">
       <PackagePath>Assets\Square44x44Logo.scale-200.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2026-01-17T20:16:51.518</Modified>
+      <Modified>2026-01-20T20:16:00.069</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\sophi\source\repos\MSBandStreamer\Assets\Square44x44Logo.targetsize-24_altform-unplated.png">
+    <AppxPackagedFile Include="C:\Users\sophi\engagement-experiment-data-collection\MSBand\MSBandStreamer\Assets\Square44x44Logo.targetsize-24_altform-unplated.png">
       <PackagePath>Assets\Square44x44Logo.targetsize-24_altform-unplated.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2026-01-17T20:16:51.518</Modified>
+      <Modified>2026-01-20T20:16:00.069</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\sophi\source\repos\MSBandStreamer\Assets\StoreLogo.png">
+    <AppxPackagedFile Include="C:\Users\sophi\engagement-experiment-data-collection\MSBand\MSBandStreamer\Assets\StoreLogo.png">
       <PackagePath>Assets\StoreLogo.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2026-01-17T20:16:51.518</Modified>
+      <Modified>2026-01-20T20:16:00.069</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\sophi\source\repos\MSBandStreamer\Assets\Wide310x150Logo.scale-200.png">
+    <AppxPackagedFile Include="C:\Users\sophi\engagement-experiment-data-collection\MSBand\MSBandStreamer\Assets\Wide310x150Logo.scale-200.png">
       <PackagePath>Assets\Wide310x150Logo.scale-200.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2026-01-17T20:16:51.518</Modified>
+      <Modified>2026-01-20T20:16:00.069</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\sophi\source\repos\MSBandStreamer\bin\x86\Debug\MSBandStreamer.xr.xml">
+    <AppxPackagedFile Include="C:\Users\sophi\engagement-experiment-data-collection\MSBand\MSBandStreamer\bin\x86\Debug\MSBandStreamer.xr.xml">
       <PackagePath>MSBandStreamer.xr.xml</PackagePath>
-      <Modified>2026-01-20T19:41:38.423</Modified>
+      <Modified>2026-01-20T20:16:00.184</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\sophi\source\repos\MSBandStreamer\bin\x86\Debug\App.xbf">
+    <AppxPackagedFile Include="C:\Users\sophi\engagement-experiment-data-collection\MSBand\MSBandStreamer\bin\x86\Debug\App.xbf">
       <PackagePath>App.xbf</PackagePath>
-      <Modified>2026-01-20T19:42:59.237</Modified>
+      <Modified>2026-01-21T16:55:50.731</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\sophi\source\repos\MSBandStreamer\bin\x86\Debug\MainPage.xbf">
+    <AppxPackagedFile Include="C:\Users\sophi\engagement-experiment-data-collection\MSBand\MSBandStreamer\bin\x86\Debug\MainPage.xbf">
       <PackagePath>MainPage.xbf</PackagePath>
-      <Modified>2026-01-20T19:42:59.237</Modified>
+      <Modified>2026-01-21T16:55:50.732</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Program Files %28x86%29\Windows Kits\10\UnionMetadata\10.0.26100.0\Windows.winmd">
       <PackagePath>WinMetadata\Windows.winmd</PackagePath>
       <Modified>2025-11-12T20:27:40.000</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\sophi\source\repos\MSBandStreamer\bin\x86\Debug\resources.pri">
+    <AppxPackagedFile Include="C:\Users\sophi\engagement-experiment-data-collection\MSBand\MSBandStreamer\bin\x86\Debug\resources.pri">
       <PackagePath>resources.pri</PackagePath>
-      <Modified>2026-01-20T19:42:59.767</Modified>
+      <Modified>2026-01-21T16:49:11.724</Modified>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\sophi\source\repos\MSBandStreamer\bin\x86\Debug\Core\MSBandStreamer.exe">
+    <AppxPackagedFile Include="C:\Users\sophi\engagement-experiment-data-collection\MSBand\MSBandStreamer\bin\x86\Debug\Core\MSBandStreamer.exe">
       <PackagePath>MSBandStreamer.exe</PackagePath>
-      <Modified>2026-01-20T19:43:00.459</Modified>
+      <Modified>2026-01-21T16:55:52.711</Modified>
     </AppxPackagedFile>
   </ItemGroup>
   <ItemGroup>

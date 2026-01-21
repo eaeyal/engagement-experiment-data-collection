@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\sophi\\source\\repos\\MSBandStreamer\\MSBandStreamer.csproj": {}
+    "C:\\Users\\sophi\\engagement-experiment-data-collection\\MSBand\\MSBandStreamer\\MSBandStreamer.csproj": {}
   },
   "projects": {
-    "C:\\Users\\sophi\\source\\repos\\MSBandStreamer\\MSBandStreamer.csproj": {
+    "C:\\Users\\sophi\\engagement-experiment-data-collection\\MSBand\\MSBandStreamer\\MSBandStreamer.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\sophi\\source\\repos\\MSBandStreamer\\MSBandStreamer.csproj",
+        "projectUniqueName": "C:\\Users\\sophi\\engagement-experiment-data-collection\\MSBand\\MSBandStreamer\\MSBandStreamer.csproj",
         "projectName": "MSBandStreamer",
-        "projectPath": "C:\\Users\\sophi\\source\\repos\\MSBandStreamer\\MSBandStreamer.csproj",
+        "projectPath": "C:\\Users\\sophi\\engagement-experiment-data-collection\\MSBand\\MSBandStreamer\\MSBandStreamer.csproj",
         "packagesPath": "C:\\Users\\sophi\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\sophi\\source\\repos\\MSBandStreamer\\obj\\",
+        "outputPath": "C:\\Users\\sophi\\engagement-experiment-data-collection\\MSBand\\MSBandStreamer\\obj\\",
         "projectStyle": "PackageReference",
         "skipContentFileWrite": true,
         "UsingMicrosoftNETSdk": false,

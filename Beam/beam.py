@@ -1,6 +1,5 @@
 import sys
 from pathlib import Path
-import csv
 import time
 from datetime import datetime
 import numpy as np
@@ -12,9 +11,6 @@ FRIENDLY_NAME = "EngagementExperiment_LSL"
 USE_UNIFIED_VIEWPORT = True
 SCREEN_WIDTH_PX = 1920
 SCREEN_HEIGHT_PX = 1080
-
-CSV_FILENAME = "beam_tracking_log.csv"
-CSV_APPEND_MODE = True
 
 LSL_STREAM_NAME = "BeamEyeTracker_GazeHead_Matrix"
 LSL_STREAM_TYPE = "GazeHead"
@@ -32,158 +28,111 @@ from eyeware.beam_eye_tracker import (
     TrackingListener,
     NULL_DATA_TIMESTAMP,
 )
+def start_beam_stream():
+    # Viewport
+    if USE_UNIFIED_VIEWPORT:
+        viewport = ViewportGeometry(Point(0.0, 0.0), Point(1.0, 1.0))
+        print("Using unified (normalized 0–1) viewport")
+    else:
+        viewport = ViewportGeometry(Point(0, 0), Point(SCREEN_WIDTH_PX, SCREEN_HEIGHT_PX))
+        print(f"Using pixel viewport: {SCREEN_WIDTH_PX} × {SCREEN_HEIGHT_PX}")
 
-# Viewport
-if USE_UNIFIED_VIEWPORT:
-    viewport = ViewportGeometry(Point(0.0, 0.0), Point(1.0, 1.0))
-    print("Using unified (normalized 0–1) viewport")
-else:
-    viewport = ViewportGeometry(Point(0, 0), Point(SCREEN_WIDTH_PX, SCREEN_HEIGHT_PX))
-    print(f"Using pixel viewport: {SCREEN_WIDTH_PX} × {SCREEN_HEIGHT_PX}")
+    # LSL setup – 16 channels (data values only – no timestamp in sample)
+    outlet_info = pylsl.StreamInfo(LSL_STREAM_NAME, LSL_STREAM_TYPE, 16, LSL_NOMINAL_SRATE, 'float32', LSL_SOURCE_ID)
+    outlet_info.desc().append_child_value("manufacturer", "Eyeware Beam")
+    channels = outlet_info.desc().append_child("channels")
 
-# CSV setup – EXACTLY 17 columns
-csv_path = Path(__file__).parent / CSV_FILENAME
-csv_exists = csv_path.exists()
+    ch_names = [
+        "gaze_conf_int",
+        "gaze_por_x",
+        "gaze_por_y",
+        "head_conf_int",
+        "head_pos_x_m",
+        "head_pos_y_m",
+        "head_pos_z_m",
+        "rot_m11", "rot_m12", "rot_m13",
+        "rot_m21", "rot_m22", "rot_m23",
+        "rot_m31", "rot_m32", "rot_m33"
+    ]
 
-header = [
-    "beam_timestamp_s",        # 1
-    "gaze_conf_int",           # 2
-    "gaze_por_x",              # 3
-    "gaze_por_y",              # 4
-    "head_conf_int",           # 5
-    "head_pos_x_m",            # 6
-    "head_pos_y_m",            # 7
-    "head_pos_z_m",            # 8
-    "rot_m11",                 # 9
-    "rot_m12",                 # 10
-    "rot_m13",                 # 11
-    "rot_m21",                 # 12
-    "rot_m22",                 # 13
-    "rot_m23",                 # 14
-    "rot_m31",                 # 15
-    "rot_m32",                 # 16
-    "rot_m33"                  # 17
-]
+    for name in ch_names:
+        ch = channels.append_child("channel")
+        ch.append_child_value("label", name)
 
-if not csv_exists or not CSV_APPEND_MODE:
-    with open(csv_path, "w", newline="", encoding="utf-8") as f:
-        csv.writer(f).writerow(header)
+    outlet = pylsl.StreamOutlet(outlet_info)
+    print(f"LSL stream: '{LSL_STREAM_NAME}' ({LSL_STREAM_TYPE}) – 16 channels")
 
-print(f"Logging to CSV: {csv_path.resolve()} (17 columns)")
+    class TrackingLogger(TrackingListener):
+        def on_tracking_state_set_update(self, tracking_state_set, timestamp):
+            ts_val = timestamp.value
 
-# LSL setup – 16 channels (data values only – no timestamp in sample)
-outlet_info = pylsl.StreamInfo(LSL_STREAM_NAME, LSL_STREAM_TYPE, 16, LSL_NOMINAL_SRATE, 'float32', LSL_SOURCE_ID)
-outlet_info.desc().append_child_value("manufacturer", "Eyeware Beam")
-channels = outlet_info.desc().append_child("channels")
+            user = tracking_state_set.user_state()
+            if user.timestamp_in_seconds.value == NULL_DATA_TIMESTAMP().value:
+                print(f"[{datetime.now().isoformat(timespec='milliseconds')}] NULL timestamp – skipping")
+                return
 
-ch_names = [
-    "gaze_conf_int",
-    "gaze_por_x",
-    "gaze_por_y",
-    "head_conf_int",
-    "head_pos_x_m",
-    "head_pos_y_m",
-    "head_pos_z_m",
-    "rot_m11", "rot_m12", "rot_m13",
-    "rot_m21", "rot_m22", "rot_m23",
-    "rot_m31", "rot_m32", "rot_m33"
-]
+            gaze = user.unified_screen_gaze
+            head = user.head_pose
 
-for name in ch_names:
-    ch = channels.append_child("channel")
-    ch.append_child_value("label", name)
+            now_iso = datetime.now().isoformat(timespec='milliseconds')
 
-outlet = pylsl.StreamOutlet(outlet_info)
-print(f"LSL stream: '{LSL_STREAM_NAME}' ({LSL_STREAM_TYPE}) – 16 channels")
+            # Gaze
+            gaze_conf_int = gaze.confidence
+            if gaze_conf_int == 0:
+                por_x = por_y = float('nan')
+            else:
+                por_x = gaze.point_of_regard.x
+                por_y = gaze.point_of_regard.y
 
-class TrackingLogger(TrackingListener):
-    def on_tracking_state_set_update(self, tracking_state_set, timestamp):
-        ts_val = timestamp.value
+            # Head position & rotation matrix
+            head_conf_int = head.confidence
 
-        user = tracking_state_set.user_state()
-        if user.timestamp_in_seconds.value == NULL_DATA_TIMESTAMP().value:
-            print(f"[{datetime.now().isoformat(timespec='milliseconds')}] NULL timestamp – skipping")
-            return
+            if head_conf_int == 0:
+                head_pos_x = head_pos_y = head_pos_z = float('nan')
+                rot_flat = [float('nan')] * 9
+            else:
+                pos = head.translation_from_hcs_to_wcs
+                head_pos_x, head_pos_y, head_pos_z = pos.x, pos.y, pos.z
 
-        gaze = user.unified_screen_gaze
-        head = user.head_pose
+                rot_mat = head.rotation_from_hcs_to_wcs  # 3×3 numpy array
+                rot_flat = rot_mat.flatten().tolist()    # 9 elements
 
-        now_iso = datetime.now().isoformat(timespec='milliseconds')
+            # LSL sample – 16 floats
+            sample = [
+                float(gaze_conf_int),
+                por_x if gaze_conf_int != 0 else 0.0,
+                por_y if gaze_conf_int != 0 else 0.0,
+                float(head_conf_int),
+                head_pos_x if head_conf_int != 0 else 0.0,
+                head_pos_y if head_conf_int != 0 else 0.0,
+                head_pos_z if head_conf_int != 0 else 0.0,
+            ] + rot_flat
+            outlet.push_sample(sample)  # LSL auto-timestamps
 
-        # Gaze
-        gaze_conf_int = gaze.confidence
-        if gaze_conf_int == 0:
-            por_x = por_y = float('nan')
-        else:
-            por_x = gaze.point_of_regard.x
-            por_y = gaze.point_of_regard.y
+            # Live print
+            print(f"[{now_iso}] ts={ts_val:.2f}s | "
+                f"Gaze conf {gaze_conf_int} POR ({por_x:.4f}, {por_y:.4f}) | "
+                f"Head conf {head_conf_int} Pos ({head_pos_x:.3f}, {head_pos_y:.3f}, {head_pos_z:.3f}m) "
+                f"Matrix sample: {rot_flat[:3]} ...")
 
-        # Head position & rotation matrix
-        head_conf_int = head.confidence
+        def on_tracking_data_reception_status_changed(self, status):
+            print(f"Tracking reception status: {status}")
 
-        if head_conf_int == 0:
-            head_pos_x = head_pos_y = head_pos_z = float('nan')
-            rot_flat = [float('nan')] * 9
-        else:
-            pos = head.translation_from_hcs_to_wcs
-            head_pos_x, head_pos_y, head_pos_z = pos.x, pos.y, pos.z
+    # ── Main ────────────────────────────────────────────────
+    api = API(FRIENDLY_NAME, viewport)
+    api.attempt_starting_the_beam_eye_tracker()
 
-            rot_mat = head.rotation_from_hcs_to_wcs  # 3×3 numpy array
-            rot_flat = rot_mat.flatten().tolist()    # 9 elements
+    listener = TrackingLogger()
+    handle = api.start_receiving_tracking_data_on_listener(listener)
 
-        # CSV row – EXACTLY 17 columns
-        row = [
-            f"{ts_val:.6f}",
-            gaze_conf_int,
-            f"{por_x:.6f}" if gaze_conf_int != 0 else "",
-            f"{por_y:.6f}" if gaze_conf_int != 0 else "",
-            head_conf_int,
-            f"{head_pos_x:.6f}" if head_conf_int != 0 else "",
-            f"{head_pos_y:.6f}" if head_conf_int != 0 else "",
-            f"{head_pos_z:.6f}" if head_conf_int != 0 else "",
-        ] + [f"{v:.6f}" if not np.isnan(v) else "" for v in rot_flat]
+    print("\nActive. Press Ctrl+C to stop.")
+    print(f"LSL: '{LSL_STREAM_NAME}' – 16 channels (data values only)")
 
-        with open(csv_path, "a", newline="", encoding="utf-8") as f:
-            csv.writer(f).writerow(row)
-
-        # LSL sample – 16 floats
-        sample = [
-            float(gaze_conf_int),
-            por_x if gaze_conf_int != 0 else 0.0,
-            por_y if gaze_conf_int != 0 else 0.0,
-            float(head_conf_int),
-            head_pos_x if head_conf_int != 0 else 0.0,
-            head_pos_y if head_conf_int != 0 else 0.0,
-            head_pos_z if head_conf_int != 0 else 0.0,
-        ] + rot_flat
-
-        outlet.push_sample(sample)  # LSL auto-timestamps
-
-        # Live print
-        print(f"[{now_iso}] ts={ts_val:.2f}s | "
-              f"Gaze conf {gaze_conf_int} POR ({por_x:.4f}, {por_y:.4f}) | "
-              f"Head conf {head_conf_int} Pos ({head_pos_x:.3f}, {head_pos_y:.3f}, {head_pos_z:.3f}m) "
-              f"Matrix sample: {rot_flat[:3]} ...")
-
-    def on_tracking_data_reception_status_changed(self, status):
-        print(f"Tracking reception status: {status}")
-
-# ── Main ────────────────────────────────────────────────
-api = API(FRIENDLY_NAME, viewport)
-api.attempt_starting_the_beam_eye_tracker()
-
-listener = TrackingLogger()
-handle = api.start_receiving_tracking_data_on_listener(listener)
-
-print("\nActive. Press Ctrl+C to stop.")
-print(f"CSV: {csv_path.resolve()} – 17 columns (timestamp + 16 data values)")
-print(f"LSL: '{LSL_STREAM_NAME}' – 16 channels (data values only)")
-
-try:
-    while True:
-        time.sleep(0.5)
-except KeyboardInterrupt:
-    print("\nShutting down...")
-finally:
-    api.stop_receiving_tracking_data_on_listener(handle)
-    print("Done.")
+    try:
+        while True:
+            time.sleep(0.5)
+    except KeyboardInterrupt:
+        print("\nShutting down...")
+    finally:
+        api.stop_receiving_tracking_data_on_listener(handle)
+        print("Done.")

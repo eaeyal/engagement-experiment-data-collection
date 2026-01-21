@@ -1,21 +1,21 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\sophi\\source\\repos\\MSBandStreamer\\",
+  "WorkspaceRootPath": "C:\\Users\\sophi\\engagement-experiment-data-collection\\MSBand\\MSBandStreamer\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{B93B9F04-68AE-455F-963C-8EE5DD3C15AB}|MSBandStreamer.csproj|c:\\users\\sophi\\source\\repos\\msbandstreamer\\package.appxmanifest||{4D47164B-07B6-4A52-A855-728D6A2E2AA3}",
-      "RelativeMoniker": "D:0:0:{B93B9F04-68AE-455F-963C-8EE5DD3C15AB}|MSBandStreamer.csproj|solutionrelative:package.appxmanifest||{4D47164B-07B6-4A52-A855-728D6A2E2AA3}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B93B9F04-68AE-455F-963C-8EE5DD3C15AB}|MSBandStreamer.csproj|C:\\Users\\sophi\\source\\repos\\MSBandStreamer\\mainpage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{B93B9F04-68AE-455F-963C-8EE5DD3C15AB}|MSBandStreamer.csproj|c:\\users\\sophi\\engagement-experiment-data-collection\\msband\\msbandstreamer\\mainpage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B93B9F04-68AE-455F-963C-8EE5DD3C15AB}|MSBandStreamer.csproj|solutionrelative:mainpage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B93B9F04-68AE-455F-963C-8EE5DD3C15AB}|MSBandStreamer.csproj|C:\\Users\\sophi\\source\\repos\\MSBandStreamer\\app.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{B93B9F04-68AE-455F-963C-8EE5DD3C15AB}|MSBandStreamer.csproj|C:\\Users\\sophi\\engagement-experiment-data-collection\\MSBand\\MSBandStreamer\\package.appxmanifest||{4D47164B-07B6-4A52-A855-728D6A2E2AA3}",
+      "RelativeMoniker": "D:0:0:{B93B9F04-68AE-455F-963C-8EE5DD3C15AB}|MSBandStreamer.csproj|solutionrelative:package.appxmanifest||{4D47164B-07B6-4A52-A855-728D6A2E2AA3}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B93B9F04-68AE-455F-963C-8EE5DD3C15AB}|MSBandStreamer.csproj|C:\\Users\\sophi\\engagement-experiment-data-collection\\MSBand\\MSBandStreamer\\app.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B93B9F04-68AE-455F-963C-8EE5DD3C15AB}|MSBandStreamer.csproj|solutionrelative:app.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B93B9F04-68AE-455F-963C-8EE5DD3C15AB}|MSBandStreamer.csproj|C:\\Users\\sophi\\source\\repos\\MSBandStreamer\\mainpage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "AbsoluteMoniker": "D:0:0:{B93B9F04-68AE-455F-963C-8EE5DD3C15AB}|MSBandStreamer.csproj|C:\\Users\\sophi\\engagement-experiment-data-collection\\MSBand\\MSBandStreamer\\mainpage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
       "RelativeMoniker": "D:0:0:{B93B9F04-68AE-455F-963C-8EE5DD3C15AB}|MSBandStreamer.csproj|solutionrelative:mainpage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     }
   ],
@@ -26,27 +26,26 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "Package.appxmanifest",
-              "DocumentMoniker": "C:\\Users\\sophi\\source\\repos\\MSBandStreamer\\Package.appxmanifest",
+              "DocumentMoniker": "C:\\Users\\sophi\\engagement-experiment-data-collection\\MSBand\\MSBandStreamer\\Package.appxmanifest",
               "RelativeDocumentMoniker": "Package.appxmanifest",
-              "ToolTip": "C:\\Users\\sophi\\source\\repos\\MSBandStreamer\\Package.appxmanifest",
+              "ToolTip": "C:\\Users\\sophi\\engagement-experiment-data-collection\\MSBand\\MSBandStreamer\\Package.appxmanifest",
               "RelativeToolTip": "Package.appxmanifest",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001793|",
-              "WhenOpened": "2026-01-20T19:42:36.751Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-01-20T19:42:36.751Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
               "Title": "App.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\sophi\\source\\repos\\MSBandStreamer\\App.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\sophi\\engagement-experiment-data-collection\\MSBand\\MSBandStreamer\\App.xaml.cs",
               "RelativeDocumentMoniker": "App.xaml.cs",
-              "ToolTip": "C:\\Users\\sophi\\source\\repos\\MSBandStreamer\\App.xaml.cs",
+              "ToolTip": "C:\\Users\\sophi\\engagement-experiment-data-collection\\MSBand\\MSBandStreamer\\App.xaml.cs",
               "RelativeToolTip": "App.xaml.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAGQAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -54,23 +53,24 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "MainPage.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\sophi\\source\\repos\\MSBandStreamer\\MainPage.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\sophi\\engagement-experiment-data-collection\\MSBand\\MSBandStreamer\\MainPage.xaml.cs",
               "RelativeDocumentMoniker": "MainPage.xaml.cs",
-              "ToolTip": "C:\\Users\\sophi\\source\\repos\\MSBandStreamer\\MainPage.xaml.cs",
+              "ToolTip": "C:\\Users\\sophi\\engagement-experiment-data-collection\\MSBand\\MSBandStreamer\\MainPage.xaml.cs",
               "RelativeToolTip": "MainPage.xaml.cs",
-              "ViewState": "AgIAACQAAAAAAAAAAAAYwEMAAAARAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAiAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-20T19:38:45.695Z"
+              "WhenOpened": "2026-01-20T19:38:45.695Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
               "Title": "MainPage.xaml",
-              "DocumentMoniker": "C:\\Users\\sophi\\source\\repos\\MSBandStreamer\\MainPage.xaml",
+              "DocumentMoniker": "C:\\Users\\sophi\\engagement-experiment-data-collection\\MSBand\\MSBandStreamer\\MainPage.xaml",
               "RelativeDocumentMoniker": "MainPage.xaml",
-              "ToolTip": "C:\\Users\\sophi\\source\\repos\\MSBandStreamer\\MainPage.xaml",
+              "ToolTip": "C:\\Users\\sophi\\engagement-experiment-data-collection\\MSBand\\MSBandStreamer\\MainPage.xaml",
               "RelativeToolTip": "MainPage.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
               "WhenOpened": "2026-01-20T19:38:34.921Z"

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "f+ndFKNrilw=",
+  "dgSpecHash": "xUGCAXO9/7M=",
   "success": true,
-  "projectFilePath": "C:\\Users\\sophi\\source\\repos\\MSBandStreamer\\MSBandStreamer.csproj",
+  "projectFilePath": "C:\\Users\\sophi\\engagement-experiment-data-collection\\MSBand\\MSBandStreamer\\MSBandStreamer.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\sophi\\.nuget\\packages\\microsoft.band\\1.3.20628\\microsoft.band.1.3.20628.nupkg.sha512",
     "C:\\Users\\sophi\\.nuget\\packages\\microsoft.net.native.compiler\\2.2.12-rel-31116-00\\microsoft.net.native.compiler.2.2.12-rel-31116-00.nupkg.sha512",
