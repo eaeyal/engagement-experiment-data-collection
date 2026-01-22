@@ -1,0 +1,1 @@
+Polar H10 MAC Address: 24:AC:AC:07:02:48
