@@ -1,0 +1,13 @@
+pyproject.toml
+omnibuds/__init__.py
+omnibuds/_version.py
+omnibuds/base.py
+omnibuds/com.py
+omnibuds/conf.py
+omnibuds/ids.py
+omnibuds/omnibuds.py
+omnibuds.egg-info/PKG-INFO
+omnibuds.egg-info/SOURCES.txt
+omnibuds.egg-info/dependency_links.txt
+omnibuds.egg-info/requires.txt
+omnibuds.egg-info/top_level.txt

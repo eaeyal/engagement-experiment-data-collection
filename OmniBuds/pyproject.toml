@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "omnibuds"
+version = "0.1.8"
+description = "A library for configuring and retrieving data from OmniBuds over BLE"
+readme = "README.md"
+license = {text = "MIT"}
+authors = [
+    {name = "Yang Liu", email = "yang.liu3e@gmail.com"},
+    {name = "Alessandro Montanari", email = "alessandro@omnibuds.tech"}
+]
+requires-python = ">=3.11"
+dependencies = [
+    "bleak==0.22.3"
+]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Topic :: Software Development :: Libraries",
+]
+[project.urls]
+Homepage = "https://github.com/OmniBudsAI/OmniBuds-PyPI"
+Documentation = "https://omnibuds.tech/"
+
