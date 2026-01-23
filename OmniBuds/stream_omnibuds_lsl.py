@@ -43,8 +43,22 @@ async def main():
     logger.info(f"Found device: {device.name} at {device.address}")
 
     # Step 2: Connect
-    async with BleakClient(device, winrt={"use_cached_services": False}) as client:
+    # Increased timeout to 20s to allow Windows time to handle the pairing popup
+    async with BleakClient(device, timeout=20.0, winrt={"use_cached_services": False}) as client:
         logger.info("Connected to device.")
+
+        # =========================================================
+        # FORCE PAIRING REQUEST (The Fix)
+        # =========================================================
+        try:
+            logger.info("Requesting pairing (Protection Level 2)...")
+            # This triggers the Windows "Add a device" popup if not already paired
+            await client.pair(protection_level=2)
+            logger.info("Pairing command accepted.")
+        except Exception as e:
+            # If this fails, it usually means we are already paired or the 
+            # library version is weird. We log it and keep going.
+            logger.warning(f"Pairing skipped or warning received: {e}")
 
         # Initialize OmniBuds communication
         manager = OmniBudsComManager(client)
@@ -54,7 +68,7 @@ async def main():
         # LSL Stream Setup
         # =========================================================
 
-        # --- PPG Stream (PRESERVED EXACTLY) ---
+        # --- PPG Stream ---
         info_ppg = StreamInfo(STREAM_NAME_PPG, STREAM_TYPE_PPG, 3, SAMPLE_RATE, 'int32', 'omnibuds_ppg')
         info_ppg.desc().append_child_value("manufacturer", "OmniBuds")
         channels_ppg = info_ppg.desc().append_child("channels")
@@ -64,7 +78,7 @@ async def main():
         outlet_ppg = StreamOutlet(info_ppg)
         logger.info(f"LSL stream '{STREAM_NAME_PPG}' created and ready.")
 
-        # --- Accelerometer Stream (NEW) ---
+        # --- Accelerometer Stream ---
         info_acc = StreamInfo(STREAM_NAME_ACC, 'Accelerometer', 3, SAMPLE_RATE, 'float32', 'omnibuds_acc')
         info_acc.desc().append_child_value("manufacturer", "OmniBuds")
         channels_acc = info_acc.desc().append_child("channels")
@@ -73,7 +87,7 @@ async def main():
         outlet_acc = StreamOutlet(info_acc)
         logger.info(f"LSL stream '{STREAM_NAME_ACC}' created and ready.")
 
-        # --- Gyroscope Stream (NEW) ---
+        # --- Gyroscope Stream ---
         info_gyro = StreamInfo(STREAM_NAME_GYRO, 'Gyroscope', 3, SAMPLE_RATE, 'float32', 'omnibuds_gyro')
         info_gyro.desc().append_child_value("manufacturer", "OmniBuds")
         channels_gyro = info_gyro.desc().append_child("channels")
@@ -82,7 +96,7 @@ async def main():
         outlet_gyro = StreamOutlet(info_gyro)
         logger.info(f"LSL stream '{STREAM_NAME_GYRO}' created and ready.")
 
-        # --- Magnetometer Stream (NEW) ---
+        # --- Magnetometer Stream ---
         info_mag = StreamInfo(STREAM_NAME_MAG, 'Magnetometer', 3, SAMPLE_RATE, 'float32', 'omnibuds_mag')
         info_mag.desc().append_child_value("manufacturer", "OmniBuds")
         channels_mag = info_mag.desc().append_child("channels")
@@ -99,38 +113,32 @@ async def main():
             try:
                 parsed = OmniBudsParsedPacket(data)
 
-                # --- PPG Handling (PRESERVED EXACTLY) ---
+                # --- PPG Handling ---
                 if parsed.peripheral_id == PeripheralID.PPG_RAW:
                     samples = parsed.get_samples()
                     for ts, green, red, ir in samples:
                         sample = [int(green), int(red), int(ir)]
-                        lsl_ts = ts / 1000.0
                         outlet_ppg.push_sample(sample)
-                        # print(f"Pushed PPG sample to LSL - TS: {ts}, Green: {green}, Red: {red}, IR: {ir}")
                 
-                # --- Accelerometer Handling (NEW) ---
+                # --- Accelerometer Handling ---
                 elif parsed.peripheral_id == PeripheralID.ACC:
-                    samples = parsed.get_samples() # returns (ts, x_str, y_str, z_str)
+                    samples = parsed.get_samples() 
                     for ts, x, y, z in samples:
-                        # Values come as strings from parsed packet, convert to float
                         sample = [float(x), float(y), float(z)]
-                        lsl_ts = ts / 1000.0
                         outlet_acc.push_sample(sample)
                 
-                # --- Gyroscope Handling (NEW) ---
+                # --- Gyroscope Handling ---
                 elif parsed.peripheral_id == PeripheralID.GYRO:
                     samples = parsed.get_samples()
                     for ts, x, y, z in samples:
                         sample = [float(x), float(y), float(z)]
-                        lsl_ts = ts / 1000.0
                         outlet_gyro.push_sample(sample)
 
-                # --- Magnetometer Handling (NEW) ---
+                # --- Magnetometer Handling ---
                 elif parsed.peripheral_id == PeripheralID.MAG:
                     samples = parsed.get_samples()
                     for ts, x, y, z in samples:
                         sample = [float(x), float(y), float(z)]
-                        lsl_ts = ts / 1000.0
                         outlet_mag.push_sample(sample)
 
             except Exception as e:
@@ -138,6 +146,9 @@ async def main():
 
         # Build and start notifications
         handler = manager.build_omnibuds_handler(user_handler=data_handler)
+        
+        logger.info("Enabling notifications...")
+        # If pairing worked above, this line will now succeed
         await client.start_notify(CHAR_UUID, handler)
         logger.info("Notifications enabled.")
 
@@ -148,37 +159,32 @@ async def main():
         # Sensor Configuration
         # =========================================================
 
-        # --- PPG Config (PRESERVED EXACTLY) ---
+        # --- PPG Config ---
         ppg_cmd = PPGRawCommand(client, manager)
         await ppg_cmd.send_command(CHAR_UUID=CHAR_UUID, endpoint=ppg_cmd.CONFIG["sampling_rate"], data=SC.PPG.SamplingRate.RATE_100HZ)
-        logger.info("PPG sampling rate set to 100Hz.")
         await ppg_cmd.send_command(CHAR_UUID=CHAR_UUID, endpoint=ppg_cmd.CONFIG["led_current"], data=SC.PPG.LEDCurrent.CURRENT_31MA)
-        logger.info("PPG LED current set to 31mA.")
         await ppg_cmd.send_command(CHAR_UUID=CHAR_UUID, endpoint=ppg_cmd.CONFIG["enable"], data="7")
-        logger.info("PPG sensor enabled with all channels (bitmask 7).")
+        logger.info("PPG sensor enabled.")
 
-        # --- Accelerometer Config (NEW) ---
+        # --- Accelerometer Config ---
         acc_cmd = AccelerometerCommand(client, manager)
-        # Rate: 100Hz ("3"), Scale: 4G ("1")
         await acc_cmd.send_command(CHAR_UUID, endpoint=acc_cmd.CONFIG["sampling_rate"], data=SC.Accel.SamplingRate.RATE_100HZ)
         await acc_cmd.send_command(CHAR_UUID, endpoint=acc_cmd.CONFIG["scale_range"], data=SC.Accel.Scale.SCALE_4G)
         await acc_cmd.send_command(CHAR_UUID, endpoint=acc_cmd.CONFIG["enable"], data=SC.SensorToggle.ENABLE)
-        logger.info("Accelerometer enabled (100Hz, 4G).")
+        logger.info("Accelerometer enabled.")
 
-        # --- Gyroscope Config (NEW) ---
+        # --- Gyroscope Config ---
         gyro_cmd = GyroCommand(client, manager)
-        # Rate: 100Hz ("3"), Scale: 1000dps ("3")
         await gyro_cmd.send_command(CHAR_UUID, endpoint=gyro_cmd.CONFIG["sampling_rate"], data=SC.Gyro.SamplingRate.RATE_100HZ)
         await gyro_cmd.send_command(CHAR_UUID, endpoint=gyro_cmd.CONFIG["scale_range"], data=SC.Gyro.Scale.DPS_1000)
         await gyro_cmd.send_command(CHAR_UUID, endpoint=gyro_cmd.CONFIG["enable"], data=SC.SensorToggle.ENABLE)
-        logger.info("Gyroscope enabled (100Hz, 1000dps).")
+        logger.info("Gyroscope enabled.")
 
-        # --- Magnetometer Config (NEW) ---
+        # --- Magnetometer Config ---
         mag_cmd = MagnetometerCommand(client, manager)
-        # Rate: 100Hz ("3")
         await mag_cmd.send_command(CHAR_UUID, endpoint=mag_cmd.CONFIG["sampling_rate"], data=SC.Mag.SamplingRate.RATE_100HZ)
         await mag_cmd.send_command(CHAR_UUID, endpoint=mag_cmd.CONFIG["enable"], data=SC.SensorToggle.ENABLE)
-        logger.info("Magnetometer enabled (100Hz).")
+        logger.info("Magnetometer enabled.")
 
         # Keep the script running
         try:
@@ -190,19 +196,17 @@ async def main():
         finally:
             logger.info("Stopping...")
 
-            # --- PPG Cleanup (PRESERVED EXACTLY) ---
+            # --- PPG Cleanup ---
             await ppg_cmd.send_command(CHAR_UUID=CHAR_UUID, endpoint=ppg_cmd.CONFIG["enable"], data="0")
-            logger.info("PPG sensor disabled.")
-
+            
             # --- New Sensors Cleanup ---
             await acc_cmd.send_command(CHAR_UUID=CHAR_UUID, endpoint=acc_cmd.CONFIG["enable"], data=SC.SensorToggle.DISABLE)
             await gyro_cmd.send_command(CHAR_UUID=CHAR_UUID, endpoint=gyro_cmd.CONFIG["enable"], data=SC.SensorToggle.DISABLE)
             await mag_cmd.send_command(CHAR_UUID=CHAR_UUID, endpoint=mag_cmd.CONFIG["enable"], data=SC.SensorToggle.DISABLE)
-            logger.info("IMU sensors disabled.")
-
+            
+            logger.info("Sensors disabled.")
             await client.stop_notify(CHAR_UUID)
             logger.info("Notifications stopped.")
-
 if __name__ == "__main__":
     try:
         asyncio.run(main())
