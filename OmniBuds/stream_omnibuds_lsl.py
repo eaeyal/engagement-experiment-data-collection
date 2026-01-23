@@ -207,7 +207,8 @@ async def main():
             logger.info("Sensors disabled.")
             await client.stop_notify(CHAR_UUID)
             logger.info("Notifications stopped.")
-if __name__ == "__main__":
+
+def start_omnibuds_stream():
     try:
         asyncio.run(main())
     except KeyboardInterrupt:

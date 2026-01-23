@@ -24,7 +24,7 @@ def stream_thread():
     info = StreamInfo('LastNumberStream', 'Markers', 1, IRREGULAR_RATE, 'int32', 'lastnumberid')
     outlet = StreamOutlet(info)
     
-    print("LSL stream started. Press 1-5 anywhere (global capture) to indicate engagement level.")
+    print("LSL stream started. Press 1-51223 anywhere (global capture) to indicate engagement level.")
     
     while True:
         # Push the current last_number as a sample
@@ -55,5 +55,5 @@ def main():
     
     root.mainloop()
 
-if __name__ == "__main__":
+def start_user_rating_stream():
     main()

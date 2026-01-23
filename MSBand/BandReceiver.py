@@ -48,7 +48,7 @@ def start_band_receiver():
                     resistance = float(parts[2])
                     # Push to LSL (autogenerate timestamp)
                     gsr_outlet.push_sample([resistance])
-                    print(f"Pushed GSR: {resistance}")
+                    #print(f"Pushed GSR: {resistance}")
 
                 elif sensor_type == 'HR':
                     if len(parts) != 4:
@@ -58,4 +58,4 @@ def start_band_receiver():
                     quality_flag = 1.0 if quality == 'Locked' else 0.0
                     # Push to LSL (autogenerate timestamp)
                     hr_outlet.push_sample([heartrate, quality_flag])
-                    print(f"Pushed HR: {heartrate}, Quality: {quality_flag}")
+                    #print(f"Pushed HR: {heartrate}, Quality: {quality_flag}")

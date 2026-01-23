@@ -110,11 +110,11 @@ def start_beam_stream():
             outlet.push_sample(sample)  # LSL auto-timestamps
 
             # Live print
-            print(f"[{now_iso}] ts={ts_val:.2f}s | "
+            '''print(f"[{now_iso}] ts={ts_val:.2f}s | "
                 f"Gaze conf {gaze_conf_int} POR ({por_x:.4f}, {por_y:.4f}) | "
                 f"Head conf {head_conf_int} Pos ({head_pos_x:.3f}, {head_pos_y:.3f}, {head_pos_z:.3f}m) "
                 f"Matrix sample: {rot_flat[:3]} ...")
-
+            '''
         def on_tracking_data_reception_status_changed(self, status):
             print(f"Tracking reception status: {status}")
 
