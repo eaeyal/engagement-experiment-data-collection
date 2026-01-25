@@ -208,7 +208,7 @@ async def main():
             await client.stop_notify(CHAR_UUID)
             logger.info("Notifications stopped.")
 
-def start_omnibuds_stream():
+if __name__ == "__main__":
     try:
         asyncio.run(main())
     except KeyboardInterrupt:

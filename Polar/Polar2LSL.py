@@ -91,3 +91,5 @@ def start_polar_stream(address=DEFAULT_ADDRESS, stream_name=DEFAULT_STREAM_NAME)
         print(f"[Polar] Error: {e}", flush=True)
     finally:
         loop.close()
+if __name__ == "__main__":
+    start_polar_stream()

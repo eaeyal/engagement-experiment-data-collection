@@ -30,3 +30,5 @@ def start_muse_stream():
         duration=None,           # Indefinite streaming (None = run forever)
         verbose=True,            # Print progress/info
     )
+if __name__ == "__main__":
+    start_muse_stream()
