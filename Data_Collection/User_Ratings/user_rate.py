@@ -11,7 +11,7 @@ last_number = 0  # Default to 0
 def on_press(key, number_var):
     global last_number
     try:
-        if key.char in '12345':
+        if key.char in '012345':
             last_number = int(key.char)
             number_var.set(f"Current number: {last_number}")
             print(f"Last number updated to: {last_number}")
@@ -24,7 +24,7 @@ def stream_thread():
     info = StreamInfo('LastNumberStream', 'Markers', 1, IRREGULAR_RATE, 'int32', 'lastnumberid')
     outlet = StreamOutlet(info)
     
-    print("LSL stream started. Press 1-51223 anywhere (global capture) to indicate engagement level.")
+    print("LSL stream started. Press 1-5 anywhere (global capture) to indicate engagement level.")
     
     while True:
         # Push the current last_number as a sample
@@ -57,3 +57,4 @@ def main():
 
 def start_user_rating_stream():
     main()
+start_user_rating_stream()
