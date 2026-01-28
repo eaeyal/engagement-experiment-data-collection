@@ -6,7 +6,16 @@ from bleak.uuids import uuid16_dict
 
 # --- Configuration & Constants ---
 # You can change these defaults or pass them as arguments to start_polar_stream
-DEFAULT_ADDRESS = "24:AC:AC:07:02:48"
+import sys
+# Detect OS to choose the correct address
+if sys.platform == "darwin":
+    # Mac UUID (Specific to this Mac only)
+    DEFAULT_ADDRESS = "00F648B4-C978-51AA-2733-8173896C4FE8"
+else:
+    # Windows MAC Address
+    DEFAULT_ADDRESS = "24:AC:AC:07:02:48"
+
+DEFAULT_STREAM_NAME = 'PolarBand'
 DEFAULT_STREAM_NAME = 'PolarBand'
 
 # UUID Definitions
