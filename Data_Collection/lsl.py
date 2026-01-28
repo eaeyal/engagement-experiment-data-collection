@@ -206,7 +206,7 @@ class LSLMonitorGUI:
         self.running = False
         self.root.destroy()
 
-def start_lsl_monitor():
+if __name__ == "__main__":
     root = tk.Tk()
     app = LSLMonitorGUI(root)
     root.protocol("WM_DELETE_WINDOW", app.on_close)

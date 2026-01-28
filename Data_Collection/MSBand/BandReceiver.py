@@ -59,3 +59,6 @@ def start_band_receiver():
                     # Push to LSL (autogenerate timestamp)
                     hr_outlet.push_sample([heartrate, quality_flag])
                     #print(f"Pushed HR: {heartrate}, Quality: {quality_flag}")
+
+if __name__ == "__main__":
+    start_band_receiver()

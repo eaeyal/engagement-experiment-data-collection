@@ -136,3 +136,6 @@ def start_beam_stream():
     finally:
         api.stop_receiving_tracking_data_on_listener(handle)
         print("Done.")
+
+if __name__ == "__main__":
+    start_beam_stream()
